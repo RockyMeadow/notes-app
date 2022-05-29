@@ -1,7 +1,17 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import useNotes from './composables/useNotes';
+import supabase from './clients/supabase';
+
+const { notes, getNotes } = useNotes(supabase);
+
+getNotes();
+</script>
 
 <template>
-  <h1 class="text-3xl font-bold underline">Hello world!</h1>
+  <div v-for="note in notes" :key="note.id">
+    <span>{{ note.title }}</span>
+    <span>{{ note.content }}</span>
+  </div>
 </template>
 
 <style>
