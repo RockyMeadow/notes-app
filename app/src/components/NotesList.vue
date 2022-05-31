@@ -7,13 +7,15 @@ const { notes, currentIndex, selectNote } = useNotes();
 
 <template>
   <div
-    v-for="(note, index) in notes"
+    v-for="note in notes"
     :key="note.id"
     class="flex flex-col px-6 py-2 my-2 hover:bg-gray-200 rounded-xl"
-    :class="{ 'bg-gray-200': currentIndex === index }"
+    :class="{ 'bg-gray-200': notes[currentIndex]?.id === note.id }"
     @click="selectNote(note)"
   >
-    <span class="text-xl font-bold text-black text-ellipsis overflow-hidden ...">{{ note.title || 'New note' }}</span>
+    <span class="flex-1 text-xl font-bold text-black text-ellipsis overflow-hidden ...">{{
+      note.title || 'New note'
+    }}</span>
     <div class="flex flex-row">
       <span class="flex-1">{{ dayjs(note.inserted_at).format('hh:mm a') }}</span>
       <span class="flex-1 text-slate-500 text-ellipsis overflow-hidden ...">{{ note.content.split(/\n| /g)[0] }}</span>
