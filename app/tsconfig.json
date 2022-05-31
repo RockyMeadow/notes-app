@@ -13,6 +13,9 @@
     "lib": ["esnext", "dom"],
     "skipLibCheck": true,
     "baseUrl": ".",
+    "types": [
+      "unplugin-icons/types/vue"
+    ],
     "paths": {
       "@/*": [
         "src/*"
