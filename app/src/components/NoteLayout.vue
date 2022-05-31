@@ -4,9 +4,9 @@ import NoteEditor from './NoteEditor.vue';
 import NoteHeader from './NoteHeader.vue';
 import useNotes from '@/composables/useNotes';
 
-const { getNotes } = useNotes();
+const { fetchNotes } = useNotes();
 
-await getNotes();
+await fetchNotes();
 </script>
 <template>
   <div class="h-screen flex flex-col">

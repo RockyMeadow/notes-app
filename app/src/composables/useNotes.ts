@@ -1,6 +1,7 @@
 import { ref } from 'vue';
 import Note from '@/types/Note';
-import client from '@/clients/supabase';
+import noteService from '@/services/note.service';
+import { v4 as uuidv4 } from 'uuid';
 
 const notes = ref<Note[]>([]);
 const currentIndex = ref(-1);
@@ -26,25 +27,24 @@ export default function useNotes() {
     currentIndex.value = 0;
   }
 
-  async function getNotes() {
-    notes.value = await client.getNotes();
+  async function fetchNotes() {
+    notes.value = await noteService.getNotes();
   }
 
-  async function updateNote(note: Note) {
-    const updated = await client.updateNote(note);
-    const index = notes.value.findIndex((note) => note.id === updated.id);
+  async function saveCurrentNote() {
+    const currentNote = notes.value[currentIndex.value];
+    currentNote.tag = uuidv4();
 
-    if (index > -1) {
-      notes.value[index] = updated;
-    }
-  }
+    const saved = notes.value[currentIndex.value].id
+      ? await noteService.updateNote(currentNote)
+      : await noteService.addNote(currentNote);
 
-  async function addNote(note: Note) {
-    const added = await client.addNote(note);
-    const index = notes.value.findIndex((note) => !note.id);
+    const index = notes.value.findIndex((note) => note.id === saved.id);
 
-    if (index > -1) {
-      notes.value[index] = added;
+    if (index !== currentIndex.value) {
+      notes.value[index] = saved;
+    } else {
+      notes.value[index].id = saved.id;
     }
   }
 
@@ -54,12 +54,50 @@ export default function useNotes() {
     }
 
     if (notes.value[currentIndex.value].id) {
-      client.removeNote(notes.value[currentIndex.value]);
+      noteService.removeNote(notes.value[currentIndex.value]);
     }
 
     notes.value.splice(currentIndex.value, 1);
     currentIndex.value = -1;
   }
 
-  return { notes, addNote, addNewNote, currentIndex, getNotes, selectNote, updateNote, removeCurrentNote };
+  return {
+    addNewNote,
+    currentIndex,
+    fetchNotes,
+    notes,
+    selectNote,
+    saveCurrentNote,
+    removeCurrentNote,
+  };
+}
+
+noteService.subscribeRealtime({
+  onNoteAdded,
+  onNoteUpdated,
+  onNoteRemoved,
+});
+
+function onNoteAdded(added: Note) {
+  const index = notes.value.findIndex((note) => note.tag === added.tag);
+
+  if (index === -1) {
+    notes.value.push(added);
+  }
+}
+
+function onNoteUpdated(updated: Note) {
+  const index = notes.value.findIndex((note) => note.id === updated.id);
+
+  if (index > -1 && notes.value[index].tag !== updated.tag) {
+    notes.value[index] = updated;
+  }
+}
+
+function onNoteRemoved(removed: Note) {
+  const index = notes.value.findIndex((note) => note.id === removed.id);
+
+  if (index !== -1) {
+    notes.value.splice(index, 1);
+  }
 }
