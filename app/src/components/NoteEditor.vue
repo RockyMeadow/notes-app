@@ -1,18 +1,24 @@
 <script setup lang="ts">
 import useNotes from '@/composables/useNotes';
 import dayjs from 'dayjs';
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 
 const { notes, currentIndex, saveCurrentNote } = useNotes();
 const note = computed(() => notes.value[currentIndex.value]);
+const showCreationDate = ref(false);
 const creationDate = computed(() => dayjs(note.value.inserted_at).format('MMMM D, YYYY h:mm A'));
+const modificationDate = computed(() => dayjs(note.value.updated_at).format('MMMM D, YYYY h:mm A'));
 </script>
 
 <template>
   <div v-if="note" class="p-5 flex flex-col h-full">
     <button class="focus:outline-none" @click="saveCurrentNote()">Save</button>
-    <div v-if="note.inserted_at" class="flex justify-center items-center text-slate-400">
-      <span>{{ creationDate }}</span>
+    <div
+      v-if="note.updated_at"
+      class="flex justify-center items-center text-slate-400"
+      @click="showCreationDate = !showCreationDate"
+    >
+      <span>{{ showCreationDate ? `Created at ${creationDate}` : modificationDate }}</span>
     </div>
     <input
       v-model="note.title"
