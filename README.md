@@ -1,6 +1,6 @@
 # Notes
 
-A note taking application built as a submission for the [Fullstack Challenge](https://coderpush.slite.com/p/note/3DPDTNkdGE0gd-woDhk8LT/Full-Stack-Challenge-v2).
+A note taking application built as a submission for the [Fullstack Challenge](https://coderpush.slite.com/p/note/3DPDTNkdGE0gd-woDhk8LT/Full-Stack-Challenge-v2). An instance of the application has been deployed in [here](https://coderpush-todo.vercel.app/)
 
 ## Tech Stack
 
