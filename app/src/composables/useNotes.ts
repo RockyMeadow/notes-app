@@ -39,7 +39,7 @@ export default function useNotes() {
       ? await noteService.updateNote(currentNote)
       : await noteService.addNote(currentNote);
 
-    const index = notes.value.findIndex((note) => note.id === saved.id);
+    const index = notes.value.findIndex((note) => note.tag === saved.tag);
 
     if (index !== currentIndex.value) {
       notes.value[index] = saved;
