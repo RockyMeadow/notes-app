@@ -14,8 +14,8 @@ await fetchNotes();
 
     <div class="h-full flex">
       <aside>
-        <div class="flex flex-col w-56">
-          <div class="flex flex-col p-2 overflow-y-auto">
+        <div class="flex flex-col h-full w-56">
+          <div class="flex flex-col p-2 h-full overflow-y-auto">
             <notes-list></notes-list>
           </div>
         </div>

@@ -18,7 +18,7 @@ export default function useNotes() {
       inserted_at: new Date().toISOString(),
     };
 
-    if (!notes.value[0].id) {
+    if (!notes.value[0]?.id) {
       notes.value[0] = emptyNote;
     } else {
       notes.value.unshift(emptyNote);
