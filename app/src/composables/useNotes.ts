@@ -45,6 +45,7 @@ export default function useNotes() {
       notes.value[index] = saved;
     } else {
       notes.value[index].id = saved.id;
+      notes.value[index].updated_at = saved.updated_at;
     }
   }
 

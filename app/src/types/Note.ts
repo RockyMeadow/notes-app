@@ -4,4 +4,5 @@ export default interface Note {
   content: string;
   tag?: string;
   inserted_at?: string;
+  updated_at?: string;
 }
