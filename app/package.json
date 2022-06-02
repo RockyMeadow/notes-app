@@ -12,6 +12,7 @@
     "@supabase/supabase-js": "^1.35.3",
     "@types/uuid": "^8.3.4",
     "@vitejs/plugin-vue": "^2.3.3",
+    "@vueuse/core": "^8.6.0",
     "autoprefixer": "^10.4.7",
     "dayjs": "^1.11.2",
     "postcss": "^8.4.14",

@@ -14,9 +14,9 @@ A note taking application built as a submission for the [Fullstack Challenge](ht
 ## Finished features
  - You can add/edit/delete a note
  - Your notes on multiple tabs or windows are updated in realtime
+ - Note upon editing should be autosaved
 
 ## Future improvements
- - Note upon editing should be autosaved
  - Support notes management by user accounts
 
 For further improvements, please check the Issues section.
