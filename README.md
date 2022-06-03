@@ -27,13 +27,27 @@ For further improvements, please check the Issues section.
 npm install
 ```
 
-### Compiles and hot-reloads for development
+### Backend: start up local docker container
+Requires installing [Supabase CLI](https://supabase.com/docs/reference/cli/installing-and-updating)
+
+```
+cd api/
+supabase start
+```
+
+### Frontend: compiles and hot-reloads for development
+
+Create a `.env.local` file in app/ that has following content, replaces env values by the url and anon key prompted earilier from Supabase CLI
+```
+VITE_SUPABASE_URL=YOUR_SUPABASE_URL
+VITE_SUPABASE_ANON_KEY=YOUR_SUPABASE_ANON_KEY
+```
 
 ```
 npm run dev -w app
 ```
 
-### Compiles and minifies for production
+### Frontend: Compiles and minifies for production
 
 ```
 npm run build -w app
